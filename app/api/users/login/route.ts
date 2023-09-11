@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
       throw new Error("password is not corrected");
     }
     const token = jwt.sign(
-      { id: user._id, email: user.email },
+      { userId: user._id, email: user.email },
       process.env.JWT_SECRET_KEY!,
       { expiresIn: process.env.JWT_ENTIRES_AT }
     );

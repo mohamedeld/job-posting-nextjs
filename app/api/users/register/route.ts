@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
     reqBody.password = hashedPassword;
     const newUser = await User.create(reqBody);
     const token = jwt.sign(
-      { id: newUser._id, email: newUser.email }, // Payload data
+      { userId: newUser._id, email: newUser.email }, // Payload data
       process.env.JWT_SECRET_KEY!, // Secret key
       { expiresIn: process.env.JWT_ENTIRES_AT } // Options: expiration date
     );
