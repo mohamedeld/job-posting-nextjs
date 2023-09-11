@@ -1,15 +1,30 @@
+"use client";
 import React from "react";
 import BgColor from "./UI/BgColor";
 import Link from "next/link";
-
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 const Register = () => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    try {
+      event.preventDefault();
+      const form = event.currentTarget;
+      const formData = new FormData(form);
+      const response = await axios.post("/api/users/register", formData);
+      toast.success(response.data.message);
+      console.log("success");
+    } catch (error) {
+      toast.error("register successfully");
+      console.log(error);
+    }
+  };
   return (
     <>
       <BgColor>
         <div className="bg-white w-[450px] p-5 rounded-xl">
           <h1 className="text-3xl font-bold mb-2">SheyJobs - Login</h1>
           <hr />
-          <form className="space-y-5">
+          <form className="space-y-5" onSubmit={handleSubmit}>
             <div className="mt-7">
               <label className="mr-5">
                 <input
@@ -72,6 +87,7 @@ const Register = () => {
           </form>
         </div>
       </BgColor>
+      <ToastContainer />
     </>
   );
 };
